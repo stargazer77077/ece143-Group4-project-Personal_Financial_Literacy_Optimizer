@@ -25,18 +25,18 @@ The pre-trained weights for the Ensemble Model and the ExtraTreeClassifier can b
 
 * **Features Used** :
   `Age`, `Occupation`, `Annual_Income`, `Num_Bank_Accounts`, `Num_Credit_Card`, `Num_of_Loan`, `Delay_from_due_date`, `Num_of_Delayed_Payments`, `Changed_Credit_Limit`, `Num_Credit_Inquiries`, `Credit_Mix`, `Outstanding_Debt`, `Payment_of_Min_Amount`, `Total_EMI_per_month`, `Amount_invested_monthly`, `Payment_Behaviour`, `Credit_Score`, `Credit_History_Age_in_Years`.
-* Normalized the data using `StandardScaler`, split the dataset into a training set and a test set with a ratio of 9:1, and applied ***SMOTE* **to augment the data after the split.
+* Normalized the data using `StandardScaler`, split the dataset into a training set and a test set with a ratio of 9:1, and applied ***SMOTE*** to augment the data after the split.
 * ***SMOTE (Synthetic Minority Oversampling Technique)*** was used to balance the dataset by generating synthetic samples for underrepresented classes, ensuring fair model training.
 * Trained two models:
-  * `b`
-  * `b` (combining ***ExtraTree**, **RandomForest***, and ***CatBoost***).
+  * **ExtraTreeClassifier**
+  * **StackingClassifier** (combining **ExtraTree**, **RandomForest**, and **CatBoost**).
 
 ### **Model Performance:**
 
 - ***ExtraTreeClassifier (10 folds):***
 
-|    | Model                          | Accuracy | AUC    | Recall | Prec.  | F1     | Kappa  | MCC    | TT (Sec) |
-| -- | ------------------------------ | -------- | ------ | ------ | ------ | ------ | ------ | ------ | -------- |
+|    | Model                                | Accuracy | AUC    | Recall | Prec.  | F1     | Kappa  | MCC    | TT (Sec) |
+| -- | ------------------------------------ | -------- | ------ | ------ | ------ | ------ | ------ | ------ | -------- |
 | et | ***Extra Trees Classifier*** | 0.8527   | 0.9504 | 0.8527 | 0.8516 | 0.8514 | 0.7790 | 0.7797 | 8.2790   |
 
 - ***EnsembleClassifier (5 folds)***:
@@ -51,7 +51,7 @@ The pre-trained weights for the Ensemble Model and the ExtraTreeClassifier can b
 | Mean | 0.8557   | 0.0000 | 0.8557 | 0.8548 | 0.8551 | 0.7836 | 0.7838 |
 | Std  | 0.0026   | 0.0000 | 0.0026 | 0.0026 | 0.0026 | 0.0039 | 0.0039 |
 
-The ***StackingClassifier* **showed slightly better performance in terms of *Accuracy* and *F1 scores* compared to the ***ExtraTreeClassifier***.
+The ***StackingClassifier*** showed slightly better performance in terms of *Accuracy* and *F1 scores* compared to the ***ExtraTreeClassifier***.
 
 ### Feature Optimization
 
