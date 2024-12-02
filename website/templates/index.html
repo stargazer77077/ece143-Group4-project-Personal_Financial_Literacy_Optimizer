@@ -191,10 +191,30 @@
                     <label for="monthly_investment">Amount Invested Monthly</label>
                     <input type="number" id="monthly_investment" name="Amount_invested_monthly">
                 </div>
+                
                 <div>
                     <label for="payment_behavior">Payment Behaviour</label>
-                    <input type="text" id="payment_behavior" name="Payment_Behaviour">
+                    <div>
+                        Spent Amount:
+                        <select Spent="spent_amount" id="spent_amount">
+                            <option value="" disabled selected></option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        Payment Amount:
+                        <select Payment="payment_amount" id="payment_amount">
+                            <option value="" disabled selected></option>
+                            <option value="Small">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">High</option>
+                        </select>
+                    </div>
                 </div>
+                
                 <div>
                     <label for="monthly_balance">Monthly Balance</label>
                     <input type="number" id="monthly_balance" name="Monthly_Balance">
