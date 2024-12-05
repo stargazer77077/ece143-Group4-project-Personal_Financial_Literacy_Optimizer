@@ -69,7 +69,7 @@
             grid-column: span 2;
             text-align: center;
             font-weight: bold;
-            color: red;
+            color:red;
         }
         .result-section {
             text-align: left;
@@ -136,17 +136,28 @@
                     <input type="number" id="credit_cards" name="Num_Credit_Card" required>
                 </div>
                 <div>
-                    <label for="interest_rate">Interest Rate (%)</label>
+                    <label for="interest_rate"> Interest Rate (%)</label>
                     <input type="number" step="0.01" id="interest_rate" name="Interest_Rate" required>
                 </div>
                 <div>
                     <label for="loans">Number of Loans</label>
                     <input type="number" id="loans" name="Num_of_Loan" required>
                 </div>
+
                 <div>
                     <label for="loan_type">Type of Loan</label>
-                    <input type="text" id="loan_type" name="Type_of_Loan">
+                    <div>
+
+                        <select Loan Type="loan type" id="loan_type">
+                            <option value="" disabled selected></option>
+                            <option value="Auto Loan">Auto Loan</option>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Auto and Personal Loan">Auto and Personal Loan</option>
+                        </select>
+                    </div>
+                    
                 </div>
+
                 <div>
                     <label for="delay_days">Delay from Due Date (days)</label>
                     <input type="number" id="delay_days" name="Delay_from_due_date">
@@ -165,14 +176,23 @@
                 </div>
                 <div>
                     <label for="credit_mix">Credit Mix</label>
-                    <input type="text" id="credit_mix" name="Credit_Mix">
+                    <div>
+                        Credit mix refers to the number of multiple types of loan accounts you hold
+                        <input type="text" id="credit_mix" name="Credit_Mix">
+                    </div>
                 </div>
+
                 <div>
                     <label for="outstanding_debt">Outstanding Debt</label>
-                    <input type="number" id="outstanding_debt" name="Outstanding_Debt">
+                    <div>
+                        Outstanding debt means the total amount of money a business owes its lenders, including accrued interest.
+                        <input type="number" id="outstanding_debt" name="Outstanding_Debt">
+                        
+                    </div>
                 </div>
+
                 <div>
-                    <label for="credit_utilization">Credit Utilization Ratio</label>
+                    <label for="credit_utilization">Credit Utilization Ratio (%)</label>
                     <input type="number" step="0.01" id="credit_utilization" name="Credit_Utilization_Ratio">
                 </div>
                 <div>
@@ -183,24 +203,28 @@
                     <label for="min_payment">Payment of Minimum Amount</label>
                     <input type="text" id="min_payment" name="Payment_of_Min_Amount">
                 </div>
+
                 <div>
                     <label for="emi_per_month">Total EMI per Month</label>
-                    <input type="number" id="emi_per_month" name="Total_EMI_per_month">
+                    <div>
+                        EMI stands for equated monthly installment. It is the amount you pay monthly to a loan provider until you pay off the debt.
+                        <input type="number" id="emi_per_month" name="Total_EMI_per_month">
+                    </div>
                 </div>
+
                 <div>
                     <label for="monthly_investment">Amount Invested Monthly</label>
                     <input type="number" id="monthly_investment" name="Amount_invested_monthly">
                 </div>
-                
                 <div>
                     <label for="payment_behavior">Payment Behaviour</label>
                     <div>
                         Spent Amount:
                         <select Spent="spent_amount" id="spent_amount">
                             <option value="" disabled selected></option>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
+                            <option value="Low">Low (Spent amount is usaully less than 40% of income)</option>
+                            <option value="Medium">Medium (Spent amount is usually between 40% and 80% of income)</option>
+                            <option value="High">High (Spent amount is usually more than 80% income)</option>
                         </select>
                     </div>
 
@@ -208,13 +232,13 @@
                         Payment Amount:
                         <select Payment="payment_amount" id="payment_amount">
                             <option value="" disabled selected></option>
-                            <option value="Small">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">High</option>
+                            <option value="Small">Low (Monthly payment to debt is less than 40% of balance)</option>
+                            <option value="Medium">Medium (Monthly payment to debt is between 40% and full coverage of balance)</option>
+                            <option value="Large">High (Monthly payment to debt fully covers balance)</option>
                         </select>
                     </div>
+
                 </div>
-                
                 <div>
                     <label for="monthly_balance">Monthly Balance</label>
                     <input type="number" id="monthly_balance" name="Monthly_Balance">
