@@ -12,11 +12,12 @@ from utils import data_process
 parser = argparse.ArgumentParser(description='Credit Scoring Model Training')
 parser.add_argument("--ensemble", type=str, default="False", help="Train an ensemble model or not")
 parser.add_argument("--use_gpu", type=str, default="True", help="use GPU for training")
-parser.add_argument("--data_path", type=str, default="./data/train.csv", help="data path")
+parser.add_argument("--data_path", type=str, default="", help="data path")
 args = parser.parse_args()
 use_ensemble = args.ensemble == "True"
 use_gpu = args.use_gpu == "True"
 data_path = args.data_path
+data_path = None if data_path == "" else data_path
 
 df_filtered = data_process(data_path)
 

@@ -16,6 +16,7 @@ args = parser.parse_args()
 model_path = args.model_path
 data_index = args.data_index
 data_path = args.data_path
+data_path = None if data_path == "" else data_path
 
 df_filtered = data_process(data_path)
 df_numeric = df_filtered.select_dtypes(include=['float64', 'int64'])

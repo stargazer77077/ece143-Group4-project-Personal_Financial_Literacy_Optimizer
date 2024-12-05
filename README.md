@@ -33,7 +33,7 @@ pip install hyperopt==0.2.7
 python train.py --ensemble False --use_gpu True --data_path {YOUR_DATA_PATH}
 ```
 
-This script automatically downloads data from Kaggle, cleans the dataset, and trains a classification model based on the specified parameters.
+This script automatically cleans the dataset and trains a classification model based on the specified parameters. If `data_path` is not provided, the dataset will be downloaded from Kaggle. Ensure your local machine is configured with Kaggle authentication. If you have saved the data locally, provide the path to the `train.csv` file as the `data_path` argument.
 
 ### Search for Optimized Features
 
@@ -45,7 +45,7 @@ This script uses Bayesian optimization to search for optimized features for the 
 
 ### Third-party modules
 
-The third-party modules we used include: 
+The third-party modules we used include:
 
 `kagglehub`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `imblearn`, `pycaret`, `joblib`, and `hyperopt`.
 
