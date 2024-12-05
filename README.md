@@ -30,7 +30,7 @@ pip install hyperopt==0.2.7
 ### Training the Model
 
 ```bash
-python train.py --ensemble False
+python train.py --ensemble False --use_gpu True --data_path {YOUR_DATA_PATH}
 ```
 
 This script automatically downloads data from Kaggle, cleans the dataset, and trains a classification model based on the specified parameters.
@@ -38,10 +38,10 @@ This script automatically downloads data from Kaggle, cleans the dataset, and tr
 ### Search for Optimized Features
 
 ```bash
-python optimize.py --model_path {YOUR_MODEL_PATH} --data_index 20
+python optimize.py --model_path {YOUR_MODEL_PATH} --data_index 20 --data_path {YOUR_DATA_PATH}
 ```
 
-This script uses Bayesian optimization to search for optimized features for the test dataset at index `{data_index}`. Ensure that the model weights are saved beforehand.
+This script uses Bayesian optimization to search for optimized features for the test dataset at index `{data_index}`. Ensure that the model weights and dataset are saved beforehand.
 
 ### Third-party modules
 
