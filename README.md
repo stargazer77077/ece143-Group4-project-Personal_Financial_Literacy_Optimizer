@@ -2,6 +2,53 @@
 
 The pre-trained weights for the Ensemble Model and the ExtraTreeClassifier can be downloaded from this Google Drive folder: [Model Weights](https://drive.google.com/drive/folders/1zXDAAJkvUK8wZCzr4DZojyVU2zw_6_uI?usp=sharing). These weights are required for replicating the classification results in our project.
 
+### **Description**
+
+This repository contains the following files:
+
+- **`train.py`**: Script for training the model.
+- **`optimize.py`**: Script for finding optimized samples.
+- **`visualize.ipynb`**: Jupyter notebook which shows all the visualizations.
+
+### **Setup**
+
+Install the required dependencies:
+
+```bash
+pip install pycaret[full]
+pip install hyperopt==0.2.7
+```
+
+If you encounter issues installing `pycaret`, try running the following commands:
+
+```bash
+pip install scikit-learn==1.4.2
+pip install catboost
+pip install hyperopt==0.2.7
+```
+
+### Training the Model
+
+```bash
+python train.py --ensemble False
+```
+
+This script automatically downloads data from Kaggle, cleans the dataset, and trains a classification model based on the specified parameters.
+
+### Search for Optimized Features
+
+```bash
+python optimize.py --model_path {YOUR_MODEL_PATH} --data_index 20
+```
+
+This script uses Bayesian optimization to search for optimized features for the test dataset at index `{data_index}`. Ensure that the model weights are saved beforehand.
+
+### Third-party modules
+
+The third-party modules we used include: 
+
+`kagglehub`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `imblearn`, `pycaret`, `joblib`, and `hyperopt`.
+
 ## What We Did in the Project
 
 ### **Dataset Collection:**
