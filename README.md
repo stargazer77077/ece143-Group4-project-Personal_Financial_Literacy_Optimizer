@@ -8,6 +8,7 @@ This repository contains the following files:
 
 - **`train.py`**: Script for training the model.
 - **`optimize.py`**: Script for finding optimized samples.
+- **`utils.py`:** Contains utility functions such as data preprocessing.
 - **`visualize.ipynb`**: Jupyter notebook which shows all the visualizations.
 
 ### **Setup**
