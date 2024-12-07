@@ -24,6 +24,7 @@ If you encounter issues installing `pycaret`, try running the following commands
 
 ```bash
 pip install scikit-learn==1.4.2
+pip install pycaret
 pip install catboost
 pip install hyperopt==0.2.7
 ```
