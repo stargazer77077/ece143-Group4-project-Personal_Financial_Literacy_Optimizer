@@ -119,6 +119,22 @@ For example, if `Num_of_Loan` is negatively correlated with `Credit_Score`, and 
 * Download the directory "website".
 * Create a new virtual environment and activate the virtual environment.
 * Open a command line terminal and install all necessary packages by runnig "pip install -r requirements.txt".
+* Download the data folder and the model file from the google drive link [here](https://drive.google.com/drive/folders/1YQUFKBU24Fuo3fWVIWFftbJ-maniOtxU?usp=sharing).
+* Your final directory structure should look as follows:
+- website/
+  - data/
+    - train.csv
+    - test.csv
+  - static/
+    - images/
+      - Background3.png
+  - templates/
+    - index.html
+  - app.py
+  - ExtraTreeClf_sklearn_latest.pkl
+  - helper_functions.py
+  - model_code.py
+  - requirements.txt
 * Run the website by running the main website python file "app.py" by calling "python app.py".
 * Go to the ip address which is printed on the terminal.
 * Try the website! 
