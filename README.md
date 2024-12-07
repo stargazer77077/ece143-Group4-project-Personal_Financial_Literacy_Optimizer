@@ -114,3 +114,11 @@ The ***_old models*** in Google Drive were trained using only a subset of featur
 In the current optimization process, it is possible for values to exceed the bounds defined in `feature_bounds`. This occurs because `feature_bounds` provides a one-sided constraint (either an upper or lower bound) based on the correlation between the current feature and `Credit_score`. The other boundary is determined by the user-inputted current value.
 
 For example, if `Num_of_Loan` is negatively correlated with `Credit_Score`, and the user inputs `Num_of_Loan` as 25 (far exceeding our defined upper bound for the search), the search range would then be `(feature_bounds["Num_of_Loan"][0], 25)`.
+
+### Running the website
+* Download the directory "website".
+* Create a new virtual environment and activate the virtual environment.
+* Open a command line terminal and install all necessary packages by runnig "pip install -r requirements.txt".
+* Run the website by running the main website python file "app.py" by calling "python app.py".
+* Go to the ip address which is printed on the terminal.
+* Try the website! 
