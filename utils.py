@@ -145,3 +145,61 @@ def data_process(data_path=None):
     print(f"Rows remaining after dropping rows with missing values in critical fields: {len(df_filtered)}")
     print("==================================================================")
     return df_filtered
+
+def initialize_advice_dict(features):
+    """
+    Initializes an advice dictionary with each feature as a key and an empty list.
+
+    Parameters:
+      features (list): List of feature names.
+
+    Returns:
+      dict: Dictionary with feature keys and empty lists as values.
+    """
+    return {feature: [] for feature in features}
+
+def append_resources(advice_dict):
+    """
+    Appends resource links to the advice for each feature in the dictionary.
+
+    Parameters:
+        advice_dict (dict): The original advice dictionary with feature-specific advice.
+
+    Returns:
+        dict: The updated advice dictionary with resource links appended.
+    """
+    advice_resources = {'Age': ["https://www.nerdwallet.com/article/finance/what-is-the-average-credit-score-by-age-and-what-is-a-good-score-for-my-age"],
+                    'Occupation': ["https://www.experian.com/blogs/ask-experian/credit-education/life-events/employment/"],
+                'Annual_Income': ["https://www.cnbc.com/select/how-does-salary-and-income-impact-your-credit-score/"],
+                'Monthly_Inhand_Salary': ["https://www.cnbc.com/select/how-does-salary-and-income-impact-your-credit-score/"],
+                'Num_Bank_Accounts': ["https://www.mybanktracker.com/credit-cards/credit-score/bank-accounts-hurt-credit-score-20174#:~:text=Quick%20answer%3A%20Credit%20scores%20are%20not%20affected%20by,are%20based%20on%20data%20on%20your%20credit%20report."],
+                'Num_Credit_Card': ["https://www.investopedia.com/ask/answers/07/credit_score.asp"],
+                'Interest_Rate': ["https://www.experian.com/blogs/ask-experian/do-lower-interest-rates-affect-your-credit-score/"],
+                'Num_of_Loan': ["https://www.americanexpress.com/en-us/credit-cards/credit-intel/does-applying-for-multiple-loans-affect-your-credit-score/"],
+                'Type_of_Loan': ["https://www.experian.com/blogs/ask-experian/credit-education/improving-credit/improve-credit-score/?msockid=1e7a629a1c436b37287c6db51dc76aa2"],
+                'Delay_from_due_date': ["https://www.nerdwallet.com/article/finance/late-bill-payment-reported"],
+                'Num_of_Delayed_Payment':["https://www.credit.com/blog/5-myths-about-late-payments-your-fico-scores-71720/"],
+                'Changed_Credit_Limit': ["https://www.cnbc.com/select/does-requesting-a-credit-limit-increase-affect-your-credit-score/?msockid=1e7a629a1c436b37287c6db51dc76aa2"],
+                'Num_Credit_Inquiries': ["https://www.experian.com/blogs/ask-experian/do-multiple-loan-inquiries-affect-your-credit-score/?msockid=1e7a629a1c436b37287c6db51dc76aa2"],
+                'Credit_Mix': ["https://www.experian.com/blogs/ask-experian/credit-education/improving-credit/improve-credit-score/?msockid=1e7a629a1c436b37287c6db51dc76aa2"],
+                'Outstanding_Debt': ["https://www.thebalancemoney.com/how-your-debt-affects-your-credit-score-960489","https://www.forbes.com/advisor/credit-cards/debt-snowball-vs-debt-avalanche-the-best-way-to-pay-off-credit-card-debt/"],
+                'Credit_Utilization_Ratio': ["https://www.businessinsider.com/personal-finance/credit-score/credit-utilization-ratio#:~:text=1%20Your%20credit%20utilization%20ratio%20is%20the%20percentage,utilization%20ratio%20is%20best%20for%20your%20credit%20scores."],
+                'Credit_History_Age': ["https://www.experian.com/blogs/ask-experian/credit-education/improving-credit/improve-credit-score/?msockid=1e7a629a1c436b37287c6db51dc76aa2"],
+                'Payment_of_Min_Amount': ["https://www.thebalancemoney.com/the-impact-of-minimum-payments-on-your-credit-score-960463"],
+                'Total_EMI_per_month': ["https://www.getonecard.app/blog/when-to-use-credit-card-emi-and-when-to-avoid/"],
+                'Amount_invested_monthly': ["https://www.chase.com/personal/credit-cards/education/credit-score/do-investments-affect-your-credit-score"],
+                'Payment_Behaviour': ["https://www.capitalone.com/learn-grow/money-management/payment-history/"],
+                'Monthly_Balance': ["https://www.experian.com/blogs/ask-experian/better-pay-off-credit-card-full-every-month-or-maintain-balance/?msockid=1e7a629a1c436b37287c6db51dc76aa2"]}
+    for feature, advice in advice_dict.items():
+        resource_links = advice_resources.get(feature, ["No specific resources available."])
+        resource_text = "\n".join(resource_links)
+
+        if not advice or advice == []:
+            # If advice is empty, only add the resource links
+            advice_dict[feature] = f"Here are some resources on how {feature} might affect your credit score:\n{resource_text} \n"
+        else:
+            # Append resource links to the existing advice for this feature
+            advice_dict[feature] = f"{advice[0]}\nHere are some resources on how {feature} might affect your credit score and ways to adjust them:\n{resource_text}\n"
+
+
+    return advice_dict

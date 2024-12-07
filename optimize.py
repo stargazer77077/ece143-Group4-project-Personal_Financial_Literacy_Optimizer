@@ -6,7 +6,7 @@ import joblib
 import argparse
 from hyperopt import fmin, tpe, hp, Trials
 from sklearn.ensemble import ExtraTreesClassifier, StackingClassifier
-from utils import data_process
+from utils import data_process, append_resources, initialize_advice_dict
 
 parser = argparse.ArgumentParser(description='Credit Scoring Model Training')
 parser.add_argument("--model_path", type=str, default="", help="pretrained model path")
@@ -192,11 +192,6 @@ class CreditScoreOptimizer:
         if feature in self.feature_types['integer_features']:
             return hp.quniform(feature, lower, upper, 1)
         return hp.uniform(feature, lower, upper)
-    
-    def get_current_pred(self, current_input):
-        normalized_sample = self._normalize_sample(current_input)
-        pred = self.best_model.predict(normalized_sample)[0]
-        return pred
 
     def progressive_optimize(self, correlation_matrix, max_features=None, base_max_evals=100):
         """
@@ -293,11 +288,84 @@ class CreditScoreOptimizer:
                 break
 
         return best_params, best_score
+    def generate_advice(self, optimized_params, original_params):
+        """
+        Generates advice by comparing optimized parameters with original parameters.
+
+        Parameters:
+            optimized_params (dict): Optimized feature values.
+            original_params (pd.Series -> dict): Original feature values before optimization.
+
+        Returns:
+            dict: A dictionary with features as keys and advice strings as values.
+        """
+        if isinstance(original_params, pd.Series):
+            original_params = original_params.to_dict()  # Convert Series to dict
+
+        advice = {}
+        for feature, optimized_value in optimized_params.items():
+            original_value = original_params.get(feature, None)
+            if original_value is None:
+                advice[feature] = f"No data available for comparison for {feature}."
+                continue
+
+          # General Features
+            if feature in self.feature_bounds:
+                min_bound, max_bound = self.feature_bounds[feature]
+
+                if optimized_value != original_value:
+                    if feature in self.feature_types["continuous_features"]:
+                        advice[feature] = (
+                            f"The value for {feature} was adjusted from {original_value:.2f} to {optimized_value:.2f} "
+                            f"to optimize your financial health. If possible, be within the range of ({min_bound:.2f}, {max_bound:.2f})."
+                        )
+                    elif feature in self.feature_types["integer_features"]:
+                        advice[feature] = (
+                            f"The number of {feature.replace('_', ' ')} has been changed from {int(original_value)} to {int(optimized_value)}. "
+                            f"This adjustment aligns better with your financial goals."
+                        )
+                    elif feature in self.feature_types["binary_features"]:
+                        advice[feature] = (
+                            f"The binary setting for {feature.replace('_', ' ')} was switched from {int(original_value)} to {int(optimized_value)}. "
+                            f"This helps improve your financial standing."
+                        )
+                    elif feature in self.feature_types["categorical_features"]:
+                        advice[feature] = (
+                            f"The categorical value for {feature} was changed from {original_value} to {optimized_value}. "
+                            f"This adjustment is recommended for better outcomes."
+                        )
+                else:
+                    advice[feature] = (
+                        f"The value for {feature} remains unchanged at {optimized_value}. "
+                    )
+
+        return advice
 
 optimizer = CreditScoreOptimizer(current_sample=current_sample, X_train=X_train_original, sc=sc, best_model=best_model)
 
-optimized_params = optimizer.progressive_optimize(correlation_matrix, base_max_evals=10)
+optimized_params, best_score = optimizer.progressive_optimize(correlation_matrix, base_max_evals=10)
 print("Before optimization: ")
 print(current_sample)
 print("After optimization: ")
 print(optimized_params)
+
+features = ["Age", "Occupation", "Annual_Income", "Monthly_Inhand_Salary",'Num_Bank_Accounts', 'Num_Credit_Card', 'Interest_Rate', 'Num_of_Loan',
+            'Type_of_Loan',  'Delay_from_due_date', 'Num_of_Delayed_Payment', 'Changed_Credit_Limit', 'Num_Credit_Inquiries', 'Credit_Mix',
+            'Outstanding_Debt', 'Credit_Utilization_Ratio', 'Credit_History_Age', 'Payment_of_Min_Amount', 'Total_EMI_per_month', 'Amount_invested_monthly',
+            'Payment_Behaviour', 'Monthly_Balance']
+advice_dict = initialize_advice_dict(features)
+original_sample = current_sample.to_dict()
+optimized_advice = optimizer.generate_advice(optimized_params, original_sample)
+
+for feature, advice in optimized_advice.items():
+    advice_dict[feature].append(advice)
+for feature, advice_list in advice_dict.items():
+    if advice_list:  # Only print features with advice
+        print(f"{feature}:")
+        for advice in advice_list:
+            print(f"  - {advice}")
+
+#Final Advice Dictionary Output
+advice_dict = append_resources(advice_dict)
+for feature, advice in advice_dict.items():
+    print(f"{feature}: {advice}")
