@@ -139,12 +139,22 @@ class CreditScoreOptimizer:
         return feature_importance.sort_values('importance', ascending=False)
 
     def _normalize_sample(self, sample):
-        """Normalize samples"""
+        """
+          Normalize samples
+
+          Parameters:
+              sample :list, np.array, or pd.Series
+        """
         sample_df = pd.DataFrame([sample])
         return pd.DataFrame(self.sc.transform(sample_df), columns=sample_df.columns)
 
     def _check_constraints(self, params):
-        """Calculate penalty for constraint violations"""
+        """
+            Calculate penalty for constraint violations
+
+          Parameters:
+              params :pd.Series
+        """
         penalty = 0
 
         # Check feature relationship constraints
@@ -170,7 +180,15 @@ class CreditScoreOptimizer:
         return penalty
 
     def _get_feature_space(self, feature, correlation, epsilon=1e-4):
-        """Define search space"""
+        """
+          Define search space
+
+          Parameters:
+              feature :str
+              correlation : float
+              epsilon: float
+        """
+        
         current_value = self.current_sample[feature]
         if feature in self.feature_types['categorical_features']:
             return hp.choice(feature, self.categorical_values[feature])
